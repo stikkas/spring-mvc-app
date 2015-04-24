@@ -1,10 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
 	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:context="http://www.springframework.org/schema/context"
+	   xmlns:mvc="http://www.springframework.org/schema/mvc"
 	   xsi:schemaLocation="http://www.springframework.org/schema/beans 
-		http://www.springframework.org/schema/beans/spring-beans.xsd">
-	<bean name="/hello.html" class="my.home.pro.web.HelloController"/>
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context
+		http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/mvc
+		http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
+	<context:component-scan base-package="my.home.pro.web" />
+	<context:annotation-config />
+	<mvc:annotation-driven />
+
+    <bean name="/priceincrease.html" class="my.home.pro.web.PriceIncreaseFormController">
+        <property name="sessionForm" value="true"/>
+        <property name="commandName" value="priceIncrease"/>
+        <property name="commandClass" value="springapp.service.PriceIncrease"/>
+        <property name="validator">
+            <bean class="my.home.pro.web.service.PriceIncreaseValidator"/>
+        </property>
+        <property name="formView" value="priceincrease"/>
+        <property name="successView" value="hello.html"/>
+        <property name="productManager" ref="productManager"/>
+    </bean>
+
+    <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+        <property name="basename" value="messages"/>
+    </bean>
 	<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="viewClass" value="org.springframework.web.servlet.view.JstlView"></property>
 		<property name="prefix" value="/WEB-INF/jsp/"></property>

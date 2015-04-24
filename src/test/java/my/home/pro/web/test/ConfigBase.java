@@ -7,7 +7,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
-@ContextConfiguration("classpath:**/springapp-servlet.xml")
+@ContextConfiguration("file:src/main/webapp/WEB-INF/springapp-servlet.xml")
 public class ConfigBase {
 
 }
